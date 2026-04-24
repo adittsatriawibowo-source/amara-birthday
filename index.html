@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>For Amara 💖</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+body {
+  margin: 0;
+  background: #000;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+/* CINEMATIC FADE */
+#fade {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 20;
+  animation: fadeOut 3s forwards;
+  display: none;
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* STARS */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
+}
+
+/* HEARTBEAT GLOW */
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.03); }
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+.name {
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+#text {
+  margin-top: 20px;
+  font-size: 1.2em;
+  min-height: 150px;
+  line-height: 1.6em;
+}
+
+/* PASSWORD */
+#lock {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 30;
+}
+
+input {
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  text-align: center;
+}
+
+button {
+  margin-top: 15px;
+  padding: 12px 30px;
+  border: none;
+  background: linear-gradient(45deg, #ff4d6d, #ff8fab);
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+/* YOUTUBE */
+#player {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 177vh;
+  height: 100vh;
+  transform: translate(-50%, -50%);
+  opacity: 0.1;
+  z-index: -1;
+}
+
+/* PHOTO */
+#photo {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  border-radius: 20px;
+  opacity: 0;
+  filter: blur(10px);
+  transition: 2s;
+}
+</style>
+</head>
+
+<body>
+
+<div id="fade"></div>
+
+<div id="lock">
+  <h2>tanggal penting kita 💭</h2>
+  <input type="password" id="pass" placeholder="contoh: 201025">
+  <button onclick="unlock()">masuk</button>
+</div>
+
+<div id="player"></div>
+
+<div class="container">
+  <div class="name">for Amara Najwa 🤍</div>
+  <h1>🎉 Happy Sweet 21 🥳</h1>
+  <div id="text"></div>
+</div>
+
+<img id="photo" src="https://i.imgur.com/yourphoto.jpg">
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+let player;
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    videoId: 'jO2viLEW-1A',
+    playerVars: {
+      autoplay: 0,
+      controls: 0,
+      loop: 1,
+      playlist: 'jO2viLEW-1A'
+    }
+  });
+}
+
+function unlock() {
+  let p = document.getElementById("pass").value;
+  if (p === "201025") {
+    document.getElementById("lock").style.display = "none";
+    document.getElementById("fade").style.display = "block";
+    start();
+  } else {
+    alert("masa lupa sih? 😒");
+  }
+}
+
+/* STARS */
+function stars() {
+  for (let i = 0; i < 100; i++) {
+    let s = document.createElement("div");
+    s.className = "star";
+    s.style.top = Math.random() * 100 + "vh";
+    s.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(s);
+  }
+}
+
+const msg =
+"Amara...\n\n" +
+"aku ga tau harus mulai dari mana.\n\n" +
+"tapi yang jelas,\n" +
+"aku bersyukur banget pernah kenal kamu.\n\n" +
+"di umur kamu yang ke-21 ini,\n" +
+"semoga semua doa kamu dikabulkan.\n\n" +
+"semoga kamu selalu bahagia,\n" +
+"dan hidup kamu penuh hal baik.\n\n" +
+"dan ya...\n" +
+"semoga makin cantik setiap hari.\n\n" +
+"karena buat aku,\n" +
+"kamu itu lebih dari sekadar 'seseorang'.\n\n" +
+"kamu adalah alasan\n" +
+"kenapa aku masih bertahan sejauh ini 🤍";
+
+let i = 0;
+
+function type() {
+  if (i < msg.length) {
+    document.getElementById("text").innerHTML += 
+      msg.charAt(i) === "\n" ? "<br>" : msg.charAt(i);
+    i++;
+    setTimeout(type, 45);
+  } else {
+    showPhoto();
+  }
+}
+
+function showPhoto() {
+  let p = document.getElementById("photo");
+  p.style.opacity = "1";
+  p.style.filter = "blur(0)";
+}
+
+function start() {
+  player.playVideo();
+  stars();
+  setTimeout(type, 2000);
+}
+</script>
+
+</body>
+</html>
